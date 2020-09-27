@@ -10,43 +10,27 @@ public class Program {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 
-		int horas, minutos, temp;
-
-		//Receber horas e validar
-		System.out.print("Introduza as horas: ");
-		while(!sc.hasNextInt()) {
-			System.out.print("Valor inválido, tente outra vez:");
-			sc.next();
-		}
+		int horas, minutos;
+		
+		System.out.print("Digite as horas: ");
 		horas = sc.nextInt();
-		while(horas < 0) {
-			System.out.print("Digite um valor > 0: ");
-			horas = sc.nextInt();
-		}
-		//Receber horas e validar
-		System.out.print("Introduza os minutos: ");
-		while(!sc.hasNextInt()) {
-			System.out.print("Valor inválido, tente outra vez:");
-			sc.next();
-		}
+		System.out.print("Digite os minutos: ");
 		minutos = sc.nextInt();
-		while(minutos < 0 || minutos > 60) {
-			System.out.print("Digite um valor entre 0 e 59: ");
-			minutos = sc.nextInt();
-		}
 		
-		int horasMinutosParaSegundos = horasMinutosParaSegundos(horas, minutos);
-		int minutosParaSegundos = minutosParaSegundos(horasMinutosParaSegundos);
-
-		System.out.printf("%d horas e %d minutos = %d segundos", horas, minutos, horasMinutosParaSegundos);
+		int hMtoSeg = horasMinutosParaSegundos(horas, minutos);
+		int mToSeg = minutosParaSegundos(minutos);
 		
-		System.out.printf("%d minutos = %d segundos", minutos, minutosParaSegundos);
-		
+		System.out.printf("%d horas e %d minutos = %d segundos\n", horas, minutos, hMtoSeg);
+		System.out.printf("%d minutos = %d segundos", minutos, mToSeg);
 		
 		sc.close();
 	}
 
 	private static int horasMinutosParaSegundos(int horas, int minutos) {
+		
+		if(horas < 0 || minutos < 0 || minutos > 60) {
+			return -1;
+		}
 		int horasParaSegundos = horas * 3600;
 		int minutosParaSegundos = minutos * 60;
 		
@@ -54,8 +38,12 @@ public class Program {
 	}
 	
 	private static int minutosParaSegundos(int minutos) {
-		int minutosParaSegundos = minutos * 60;
 		
+		if(minutos < 0 || minutos > 60) {
+			return -1;
+		}
+		
+		int minutosParaSegundos = minutos * 60;
 		return minutosParaSegundos;
 	}
 
